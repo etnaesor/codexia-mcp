@@ -1,0 +1,53 @@
+{
+  "name": "@corpusia/codexia-mcp",
+  "version": "0.1.0",
+  "description": "CODEX·IA — Mexican Law MCP Server. Full-text search across 59,000+ Mexican legal documents via Model Context Protocol.",
+  "author": "CORPUSIA <informacionDREV@protonmail.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "codexia-mcp": "dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etnaesor/codexia-mcp"
+  },
+  "homepage": "https://codexia.mx",
+  "bugs": "https://github.com/etnaesor/codexia-mcp/issues",
+  "keywords": [
+    "mcp", "model-context-protocol", "mexican-law", "legal",
+    "legislation", "sqlite", "fts5", "claude", "cursor",
+    "legaltech", "mexico", "derecho", "legislacion"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "ingest": "tsx scripts/ingest.ts",
+    "build:db": "tsx scripts/build-db.ts",
+    "drift:detect": "tsx scripts/drift-detect.ts",
+    "census": "tsx scripts/census.ts",
+    "check-updates": "tsx scripts/drift-detect.ts --ci",
+    "test": "vitest",
+    "lint": "eslint src/",
+    "clean": "rm -rf dist/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "better-sqlite3": "^11.8.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "eslint": "^9.17.0"
+  }
+}

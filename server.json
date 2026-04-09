@@ -1,0 +1,46 @@
+{
+  "name": "codexia-mcp",
+  "namespace": "io.github.etnaesor",
+  "display_name": "CODEX·IA — Mexican Law MCP Server",
+  "description": "Complete Mexican legislation as MCP tools. Full-text search across 59,000+ legal documents with SQLite FTS5 (<100ms). Returns verbatim statutory text — zero LLM summarization. Covers federal laws, jurisprudence, regulations, and state legislation across 34 branches of Mexican law.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etnaesor/codexia-mcp"
+  },
+  "homepage": "https://codexia.mx",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "CORPUSIA",
+    "email": "informacionDREV@protonmail.com",
+    "url": "https://corpusia.net"
+  },
+  "categories": ["legal", "compliance", "government", "research"],
+  "tags": ["law", "mexico", "legislation", "spanish", "fts5", "sqlite", "legaltech"],
+  "tools": [
+    {
+      "name": "search_law",
+      "description": "Full-text search across Mexican legislation using FTS5 snippet()"
+    },
+    {
+      "name": "get_article",
+      "description": "Verbatim text of a specific legal article — zero LLM summarization"
+    },
+    {
+      "name": "list_statutes",
+      "description": "Browsable catalog of legislation filtered by legal branch and jurisdiction"
+    },
+    {
+      "name": "check_updates",
+      "description": "Drift detection against Mexico's Official Gazette (DOF) for legislative reforms"
+    }
+  ],
+  "endpoints": {
+    "hosted": "https://codexia.corpusia.net/mcp",
+    "npm": "@corpusia/codexia-mcp"
+  },
+  "runtime": {
+    "type": "node",
+    "minimum_version": "20.0.0"
+  }
+}

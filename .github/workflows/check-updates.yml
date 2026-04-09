@@ -1,0 +1,43 @@
+# CODEX·IA — Daily Drift Detection
+# Checks DOF for legislative reforms and flags outdated articles
+
+name: Check Updates
+
+on:
+  schedule:
+    # Run daily at 15:00 UTC (9:00 AM Mexico City)
+    - cron: '0 15 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  drift-detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Run drift detection
+        run: npm run check-updates
+        env:
+          DB_PATH: ./data/codexia.db
+
+      - name: Create issue if reforms detected
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ DOF Reform Detected — ${new Date().toISOString().split('T')[0]}`,
+              body: 'Drift detection found pending legislative reforms. Run `npm run drift:detect` locally for details.',
+              labels: ['reform-detected', 'automated']
+            });

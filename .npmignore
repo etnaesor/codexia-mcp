@@ -1,0 +1,19 @@
+# Files excluded from npm package
+src/
+scripts/
+tests/
+docs/
+marketing/
+landing/
+api/
+.github/
+.env
+.env.example
+.env.local
+tsconfig.json
+vitest.config.ts
+.gitignore
+COVERAGE.md
+CHANGELOG.md
+vercel.json
+*.test.ts
