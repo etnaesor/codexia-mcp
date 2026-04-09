@@ -19,52 +19,60 @@ export function registerSearchLaw(server: McpServer, db: Database): void {
 			jurisdiction: z.string().optional().describe("Filtrar: federal, estatal:jalisco, etc."),
 		},
 		async ({ query, limit, materia, jurisdiction }) => {
-			const conditions: string[] = [];
-			const params: (string | number)[] = [query];
+			try {
+				const conditions: string[] = [];
+				const params: (string | number)[] = [query];
 
-			if (materia) {
-				conditions.push("AND s.materia = ?");
-				params.push(materia);
-			}
-			if (jurisdiction) {
-				conditions.push("AND s.jurisdiction = ?");
-				params.push(jurisdiction);
-			}
-			params.push(limit);
+				if (materia) {
+					conditions.push("AND s.materia = ?");
+					params.push(materia);
+				}
+				if (jurisdiction) {
+					conditions.push("AND s.jurisdiction = ?");
+					params.push(jurisdiction);
+				}
+				params.push(limit);
 
-			const sql = `
-				SELECT
-					p.id, s.code,
-					s.title AS statute_title,
-					p.article_number,
-					snippet(provisions_fts, 2, '<b>', '</b>', '...', 32) AS snippet,
-					rank
-				FROM provisions_fts
-				JOIN provisions p ON p.id = provisions_fts.rowid
-				JOIN statutes s ON s.id = p.statute_id
-				WHERE provisions_fts MATCH ?
-				${conditions.join(" ")}
-				ORDER BY rank
-				LIMIT ?
-			`;
+				const sql = `
+					SELECT
+						p.id, s.code,
+						s.title AS statute_title,
+						p.article_number,
+						snippet(provisions_fts, 2, '<b>', '</b>', '...', 32) AS snippet,
+						rank
+					FROM provisions_fts
+					JOIN provisions p ON p.id = provisions_fts.rowid
+					JOIN statutes s ON s.id = p.statute_id
+					WHERE provisions_fts MATCH ?
+					${conditions.join(" ")}
+					ORDER BY rank
+					LIMIT ?
+				`;
 
-			const results = queryAll(db, sql, ...params);
+				const results = queryAll(db, sql, ...params);
 
-			if (results.length === 0) {
+				if (results.length === 0) {
+					return {
+						content: [{ type: "text" as const, text: `No se encontraron resultados para: "${query}"` }],
+					};
+				}
+
+				const text = results
+					.map((r, i) =>
+						`[${i + 1}] ${r.code} Art. ${r.article_number} — ${r.statute_title}\n${r.snippet}`
+					)
+					.join("\n\n");
+
 				return {
-					content: [{ type: "text" as const, text: `No se encontraron resultados para: "${query}"` }],
+					content: [{ type: "text" as const, text: `${results.length} resultados para "${query}":\n\n${text}` }],
+				};
+			} catch (err) {
+				const message = err instanceof Error ? err.message : String(err);
+				return {
+					content: [{ type: "text" as const, text: `Error en la búsqueda: ${message}\n\nConsejo: usa términos simples o operadores FTS5 válidos (AND, OR, NOT, NEAR()).` }],
+					isError: true,
 				};
 			}
-
-			const text = results
-				.map((r, i) =>
-					`[${i + 1}] ${r.code} Art. ${r.article_number} — ${r.statute_title}\n${r.snippet}`
-				)
-				.join("\n\n");
-
-			return {
-				content: [{ type: "text" as const, text: `${results.length} resultados para "${query}":\n\n${text}` }],
-			};
 		}
 	);
 }

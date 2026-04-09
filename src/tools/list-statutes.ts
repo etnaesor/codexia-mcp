@@ -18,30 +18,38 @@ export function registerListStatutes(server: McpServer, db: Database): void {
 			limit: z.number().min(1).max(100).default(25).describe("Máximo de resultados"),
 		},
 		async ({ materia, jurisdiction, limit }) => {
-			const conditions: string[] = [];
-			const params: (string | number)[] = [];
+			try {
+				const conditions: string[] = [];
+				const params: (string | number)[] = [];
 
-			if (materia) { conditions.push("materia = ?"); params.push(materia); }
-			if (jurisdiction) { conditions.push("jurisdiction = ?"); params.push(jurisdiction); }
-			params.push(limit);
+				if (materia) { conditions.push("materia = ?"); params.push(materia); }
+				if (jurisdiction) { conditions.push("jurisdiction = ?"); params.push(jurisdiction); }
+				params.push(limit);
 
-			const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
-			const sql = `
-				SELECT code, title, materia, jurisdiction, last_reform_date,
-					(SELECT COUNT(*) FROM provisions WHERE statute_id = statutes.id) AS article_count
-				FROM statutes ${where} ORDER BY title LIMIT ?
-			`;
+				const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+				const sql = `
+					SELECT code, title, materia, jurisdiction, last_reform_date,
+						(SELECT COUNT(*) FROM provisions WHERE statute_id = statutes.id) AS article_count
+					FROM statutes ${where} ORDER BY title LIMIT ?
+				`;
 
-			const rows = queryAll(db, sql, ...params);
-			if (rows.length === 0) {
-				return { content: [{ type: "text" as const, text: "No se encontraron leyes con los filtros especificados." }] };
+				const rows = queryAll(db, sql, ...params);
+				if (rows.length === 0) {
+					return { content: [{ type: "text" as const, text: "No se encontraron leyes con los filtros especificados." }] };
+				}
+
+				const text = rows
+					.map((r) => `• ${r.code} — ${r.title}\n  📂 ${r.materia ?? "sin clasificar"} | ${r.jurisdiction} | ${r.article_count} artículos${r.last_reform_date ? ` | Reforma: ${r.last_reform_date}` : ""}`)
+					.join("\n\n");
+
+				return { content: [{ type: "text" as const, text: `${rows.length} leyes encontradas:\n\n${text}` }] };
+			} catch (err) {
+				const message = err instanceof Error ? err.message : String(err);
+				return {
+					content: [{ type: "text" as const, text: `Error al listar leyes: ${message}` }],
+					isError: true,
+				};
 			}
-
-			const text = rows
-				.map((r) => `• ${r.code} — ${r.title}\n  📂 ${r.materia ?? "sin clasificar"} | ${r.jurisdiction} | ${r.article_count} artículos${r.last_reform_date ? ` | Reforma: ${r.last_reform_date}` : ""}`)
-				.join("\n\n");
-
-			return { content: [{ type: "text" as const, text: `${rows.length} leyes encontradas:\n\n${text}` }] };
 		}
 	);
 }
