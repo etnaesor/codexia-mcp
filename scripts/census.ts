@@ -1,40 +1,51 @@
 /**
  * CODEX·IA — Coverage Census Script
  * Usage: npm run census
- * Reports coverage stats per source and materia
  */
 
-import Database from "better-sqlite3";
-import { resolve } from "path";
+import initSqlJs from "sql.js-fts5";
+import { readFileSync, existsSync } from "fs";
+import { resolve, dirname } from "path";
+import { createRequire } from "module";
 
 const DB_PATH = resolve(import.meta.dirname ?? ".", "../data/codexia.db");
 
-const db = new Database(DB_PATH, { readonly: true });
+function loadWasm(): Buffer {
+	const require = createRequire(import.meta.url);
+	const mainPath = require.resolve("sql.js-fts5");
+	return readFileSync(resolve(dirname(mainPath), "sql-wasm.wasm"));
+}
 
-console.log("🏛️  CODEX·IA — Coverage Census\n");
+async function main() {
+	if (!existsSync(DB_PATH)) {
+		console.log("❌ Database not found. Run 'npm run build:db' first.");
+		process.exit(1);
+	}
 
-const bySource = db.prepare(`
-	SELECT source, COUNT(*) AS count FROM statutes GROUP BY source ORDER BY count DESC
-`).all() as Array<{ source: string; count: number }>;
+	const SQL = await initSqlJs({ wasmBinary: loadWasm() });
+	const db = new SQL.Database(readFileSync(DB_PATH));
 
-console.log("📂 By Source:");
-for (const r of bySource) console.log(`   ${r.source}: ${r.count} statutes`);
+	console.log("🏛️  CODEX·IA — Coverage Census\n");
 
-const byMateria = db.prepare(`
-	SELECT materia, COUNT(*) AS count FROM statutes WHERE materia IS NOT NULL GROUP BY materia ORDER BY count DESC
-`).all() as Array<{ materia: string; count: number }>;
+	const bySource = db.exec("SELECT source, COUNT(*) AS c FROM statutes GROUP BY source ORDER BY c DESC");
+	if (bySource.length > 0) {
+		console.log("📂 By Source:");
+		for (const row of bySource[0].values) console.log(`   ${row[0]}: ${row[1]} statutes`);
+	}
 
-console.log("\n⚖️  By Materia:");
-for (const r of byMateria) console.log(`   ${r.materia}: ${r.count}`);
+	const byMateria = db.exec("SELECT materia, COUNT(*) AS c FROM statutes WHERE materia IS NOT NULL GROUP BY materia ORDER BY c DESC");
+	if (byMateria.length > 0) {
+		console.log("\n⚖️  By Materia:");
+		for (const row of byMateria[0].values) console.log(`   ${row[0]}: ${row[1]}`);
+	}
 
-const total = db.prepare(`
-	SELECT
-		(SELECT COUNT(*) FROM statutes) AS statutes,
-		(SELECT COUNT(*) FROM provisions) AS provisions
-`).get() as { statutes: number; provisions: number };
+	const total = db.exec("SELECT (SELECT COUNT(*) FROM statutes), (SELECT COUNT(*) FROM provisions)");
+	const [s, p] = (total[0]?.values[0] ?? [0, 0]) as number[];
+	console.log(`\n📊 Total: ${s} statutes, ${p} provisions`);
+	console.log(`🎯 Target: 59,000 documents`);
+	console.log(`📈 Coverage: ${((p / 59000) * 100).toFixed(1)}%`);
 
-console.log(`\n📊 Total: ${total.statutes} statutes, ${total.provisions} provisions`);
-console.log(`🎯 Target: 59,000 documents across 34 branches of Mexican law`);
-console.log(`📈 Coverage: ${((total.provisions / 59000) * 100).toFixed(1)}%`);
+	db.close();
+}
 
-db.close();
+main().catch(console.error);

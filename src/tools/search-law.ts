@@ -4,18 +4,19 @@
  */
 
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type Database from "better-sqlite3";
+import type { Database } from "sql.js-fts5";
 import { z } from "zod";
+import { queryAll } from "../db/query.js";
 
-export function registerSearchLaw(server: McpServer, db: Database.Database): void {
+export function registerSearchLaw(server: McpServer, db: Database): void {
 	server.tool(
 		"search_law",
 		"Búsqueda full-text en la legislación mexicana. Devuelve artículos relevantes con snippets de contexto. Soporta operadores FTS5: AND, OR, NOT, NEAR().",
 		{
-			query: z.string().describe("Términos de búsqueda en español. Ej: 'derechos trabajador despido injustificado'"),
-			limit: z.number().min(1).max(50).default(10).describe("Máximo de resultados (default: 10)"),
-			materia: z.string().optional().describe("Filtrar por materia: laboral, civil, penal, fiscal, mercantil, etc."),
-			jurisdiction: z.string().optional().describe("Filtrar por jurisdicción: federal, estatal:jalisco, etc."),
+			query: z.string().describe("Términos de búsqueda en español"),
+			limit: z.number().min(1).max(50).default(10).describe("Máximo de resultados"),
+			materia: z.string().optional().describe("Filtrar por materia: laboral, civil, penal, fiscal, etc."),
+			jurisdiction: z.string().optional().describe("Filtrar: federal, estatal:jalisco, etc."),
 		},
 		async ({ query, limit, materia, jurisdiction }) => {
 			const conditions: string[] = [];
@@ -29,13 +30,11 @@ export function registerSearchLaw(server: McpServer, db: Database.Database): voi
 				conditions.push("AND s.jurisdiction = ?");
 				params.push(jurisdiction);
 			}
-
 			params.push(limit);
 
 			const sql = `
 				SELECT
-					p.id,
-					s.code,
+					p.id, s.code,
 					s.title AS statute_title,
 					p.article_number,
 					snippet(provisions_fts, 2, '<b>', '</b>', '...', 32) AS snippet,
@@ -49,14 +48,7 @@ export function registerSearchLaw(server: McpServer, db: Database.Database): voi
 				LIMIT ?
 			`;
 
-			const results = db.prepare(sql).all(...params) as Array<{
-				id: number;
-				code: string;
-				statute_title: string;
-				article_number: string;
-				snippet: string;
-				rank: number;
-			}>;
+			const results = queryAll(db, sql, ...params);
 
 			if (results.length === 0) {
 				return {

@@ -10,20 +10,12 @@ import { registerTools } from "../src/tools/index.js";
 import { getDb } from "../src/db/connection.js";
 import type { IncomingMessage, ServerResponse } from "http";
 
-export default async function handler(
-	req: IncomingMessage,
-	res: ServerResponse
-) {
-	// CORS headers
+export default async function handler(req: IncomingMessage, res: ServerResponse) {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-	if (req.method === "OPTIONS") {
-		res.statusCode = 204;
-		res.end();
-		return;
-	}
+	if (req.method === "OPTIONS") { res.statusCode = 204; res.end(); return; }
 
 	try {
 		const server = new McpServer({
@@ -32,13 +24,12 @@ export default async function handler(
 			description: "CODEX·IA — Legislación mexicana completa via MCP",
 		});
 
-		const db = getDb();
+		const db = await getDb();
 		registerTools(server, db);
 
 		const transport = new SSEServerTransport("/api/mcp", res);
 		await server.connect(transport);
 
-		// Handle incoming messages
 		if (req.method === "POST") {
 			await transport.handlePostMessage(req, res);
 		}

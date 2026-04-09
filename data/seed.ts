@@ -1,0 +1,471 @@
+/**
+ * CODEX·IA — Seed Data
+ * Real Mexican legal articles for initial database population.
+ * Source: Official Mexican government publications (public domain).
+ */
+
+export interface SeedStatute {
+	code: string;
+	title: string;
+	jurisdiction: string;
+	materia: string;
+	source: string;
+	source_url: string;
+	last_reform_date: string;
+	articles: SeedArticle[];
+}
+
+export interface SeedArticle {
+	article_number: string;
+	title?: string;
+	body: string;
+	chapter?: string;
+	section?: string;
+}
+
+export const SEED_STATUTES: SeedStatute[] = [
+	{
+		code: "CPEUM",
+		title: "Constitución Política de los Estados Unidos Mexicanos",
+		jurisdiction: "federal",
+		materia: "constitucional",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf",
+		last_reform_date: "2024-11-01",
+		articles: [
+			{
+				article_number: "1",
+				title: "De los Derechos Humanos y sus Garantías",
+				body: "En los Estados Unidos Mexicanos todas las personas gozarán de los derechos humanos reconocidos en esta Constitución y en los tratados internacionales de los que el Estado Mexicano sea parte, así como de las garantías para su protección, cuyo ejercicio no podrá restringirse ni suspenderse, salvo en los casos y bajo las condiciones que esta Constitución establece.\n\nLas normas relativas a los derechos humanos se interpretarán de conformidad con esta Constitución y con los tratados internacionales de la materia favoreciendo en todo tiempo a las personas la protección más amplia.\n\nTodas las autoridades, en el ámbito de sus competencias, tienen la obligación de promover, respetar, proteger y garantizar los derechos humanos de conformidad con los principios de universalidad, interdependencia, indivisibilidad y progresividad. En consecuencia, el Estado deberá prevenir, investigar, sancionar y reparar las violaciones a los derechos humanos, en los términos que establezca la ley.\n\nEstá prohibida la esclavitud en los Estados Unidos Mexicanos. Los esclavos del extranjero que entren al territorio nacional alcanzarán, por este solo hecho, su libertad y la protección de las leyes.\n\nQueda prohibida toda discriminación motivada por origen étnico o nacional, el género, la edad, las discapacidades, la condición social, las condiciones de salud, la religión, las opiniones, las preferencias sexuales, el estado civil o cualquier otra que atente contra la dignidad humana y tenga por objeto anular o menoscabar los derechos y libertades de las personas.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "2",
+				title: "Derechos de los Pueblos Indígenas",
+				body: "La Nación Mexicana es única e indivisible.\n\nLa Nación tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas que son aquellos que descienden de poblaciones que habitaban en el territorio actual del país al iniciarse la colonización y que conservan sus propias instituciones sociales, económicas, culturales y políticas, o parte de ellas.\n\nLa conciencia de su identidad indígena deberá ser criterio fundamental para determinar a quiénes se aplican las disposiciones sobre pueblos indígenas.\n\nSon comunidades integrantes de un pueblo indígena, aquellas que formen una unidad social, económica y cultural, asentadas en un territorio y que reconocen autoridades propias de acuerdo con sus usos y costumbres.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "3",
+				title: "Derecho a la Educación",
+				body: "Toda persona tiene derecho a la educación. El Estado -Federación, Estados, Ciudad de México y Municipios- impartirá y garantizará la educación inicial, preescolar, primaria, secundaria, media superior y superior. La educación inicial, preescolar, primaria y secundaria, conforman la educación básica; ésta y la media superior serán obligatorias, la educación superior lo será en términos de la fracción X del presente artículo. La educación inicial es un derecho de la niñez y será responsabilidad del Estado concientizar sobre su importancia.\n\nCorresponde al Estado la rectoría de la educación, la impartida por éste, además de obligatoria, será universal, inclusiva, pública, gratuita y laica.\n\nLa educación se basará en el respeto irrestricto de la dignidad de las personas, con un enfoque de derechos humanos y de igualdad sustantiva. Tenderá a desarrollar armónicamente todas las facultades del ser humano y fomentará en él, a la vez, el amor a la Patria, el respeto a todos los derechos, las libertades, la cultura de paz y la conciencia de la solidaridad internacional, en la independencia y en la justicia; promoverá la honestidad, los valores y la mejora continua del proceso de enseñanza aprendizaje.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "4",
+				title: "Igualdad ante la Ley",
+				body: "La mujer y el hombre son iguales ante la ley. Ésta protegerá la organización y el desarrollo de la familia.\n\nToda persona tiene derecho a decidir de manera libre, responsable e informada sobre el número y el espaciamiento de sus hijos.\n\nToda persona tiene derecho a la alimentación nutritiva, suficiente y de calidad. El Estado lo garantizará.\n\nToda persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud y establecerá la concurrencia de la Federación y las entidades federativas en materia de salubridad general conforme a lo que dispone la fracción XVI del artículo 73 de esta Constitución. La Ley definirá un sistema de salud para el bienestar, con el fin de garantizar la extensión progresiva, cuantitativa y cualitativa de los servicios de salud para la atención integral y gratuita de las personas que no cuenten con seguridad social.\n\nToda persona tiene derecho a un medio ambiente sano para su desarrollo y bienestar. El Estado garantizará el respeto a este derecho. El daño y deterioro ambiental generará responsabilidad para quien lo provoque en términos de lo dispuesto por la ley.\n\nToda persona tiene derecho al acceso, disposición y saneamiento de agua para consumo personal y doméstico en forma suficiente, salubre, aceptable y asequible. El Estado garantizará este derecho y la ley definirá las bases, apoyos y modalidades para el acceso y uso equitativo y sustentable de los recursos hídricos.\n\nToda familia tiene derecho a disfrutar de vivienda digna y decorosa. La Ley establecerá los instrumentos y apoyos necesarios a fin de alcanzar tal objetivo.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "5",
+				title: "Libertad de Trabajo",
+				body: "A ninguna persona podrá impedirse que se dedique a la profesión, industria, comercio o trabajo que le acomode, siendo lícitos. El ejercicio de esta libertad sólo podrá vedarse por determinación judicial, cuando se ataquen los derechos de tercero, o por resolución gubernativa, dictada en los términos que marque la ley, cuando se ofendan los derechos de la sociedad. Nadie puede ser privado del producto de su trabajo, sino por resolución judicial.\n\nLa Ley determinará en cada entidad federativa, cuáles son las profesiones que necesitan título para su ejercicio, las condiciones que deban llenarse para obtenerlo y las autoridades que han de expedirlo.\n\nNadie podrá ser obligado a prestar trabajos personales sin la justa retribución y sin su pleno consentimiento, salvo el trabajo impuesto como pena por la autoridad judicial, el cual se ajustará a lo dispuesto en las fracciones I y II del artículo 123.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "14",
+				title: "Irretroactividad y Debido Proceso",
+				body: "A ninguna ley se dará efecto retroactivo en perjuicio de persona alguna.\n\nNadie podrá ser privado de la libertad o de sus propiedades, posesiones o derechos, sino mediante juicio seguido ante los tribunales previamente establecidos, en el que se cumplan las formalidades esenciales del procedimiento y conforme a las Leyes expedidas con anterioridad al hecho.\n\nEn los juicios del orden criminal queda prohibido imponer, por simple analogía, y aún por mayoría de razón, pena alguna que no esté decretada por una ley exactamente aplicable al delito de que se trata.\n\nEn los juicios del orden civil, la sentencia definitiva deberá ser conforme a la letra o a la interpretación jurídica de la ley, y a falta de ésta se fundará en los principios generales del derecho.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "16",
+				title: "Garantía de Legalidad",
+				body: "Nadie puede ser molestado en su persona, familia, domicilio, papeles o posesiones, sino en virtud de mandamiento escrito de la autoridad competente, que funde y motive la causa legal del procedimiento. En los juicios y procedimientos seguidos en forma de juicio en los que se establezca como regla la oralidad, bastará con que quede constancia de ellos en cualquier medio que dé certeza de su contenido y del cumplimiento de lo previsto en este párrafo.\n\nToda persona tiene derecho a la protección de sus datos personales, al acceso, rectificación y cancelación de los mismos, así como a manifestar su oposición, en los términos que fije la ley, la cual establecerá los supuestos de excepción a los principios que rijan el tratamiento de datos, por razones de seguridad nacional, disposiciones de orden público, seguridad y salud públicas o para proteger los derechos de terceros.\n\nNo podrá librarse orden de aprehensión sino por la autoridad judicial y sin que preceda denuncia o querella de un hecho que la ley señale como delito, sancionado con pena privativa de libertad y obren datos que establezcan que se ha cometido ese hecho y que exista la probabilidad de que el indiciado lo cometió o participó en su comisión.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "27",
+				title: "Propiedad de la Nación",
+				body: "La propiedad de las tierras y aguas comprendidas dentro de los límites del territorio nacional, corresponde originariamente a la Nación, la cual ha tenido y tiene el derecho de transmitir el dominio de ellas a los particulares, constituyendo la propiedad privada.\n\nLas expropiaciones sólo podrán hacerse por causa de utilidad pública y mediante indemnización.\n\nLa nación tendrá en todo tiempo el derecho de imponer a la propiedad privada las modalidades que dicte el interés público, así como el de regular, en beneficio social, el aprovechamiento de los elementos naturales susceptibles de apropiación, con objeto de hacer una distribución equitativa de la riqueza pública, cuidar de su conservación, lograr el desarrollo equilibrado del país y el mejoramiento de las condiciones de vida de la población rural y urbana.\n\nCorresponde a la Nación el dominio directo de todos los recursos naturales de la plataforma continental y los zócalos submarinos de las islas; de todos los minerales o substancias que en vetas, mantos, masas o yacimientos, constituyan depósitos cuya naturaleza sea distinta de los componentes de los terrenos.",
+				chapter: "Título Primero",
+				section: "Capítulo I - De los Derechos Humanos y sus Garantías",
+			},
+			{
+				article_number: "123",
+				title: "Del Trabajo y de la Previsión Social",
+				body: "Toda persona tiene derecho al trabajo digno y socialmente útil; al efecto, se promoverán la creación de empleos y la organización social de trabajo, conforme a la ley.\n\nEl Congreso de la Unión, sin contravenir a las bases siguientes deberá expedir leyes sobre el trabajo, las cuales regirán:\n\nA. Entre los obreros, jornaleros, empleados domésticos, artesanos y de una manera general, todo contrato de trabajo:\n\nI. La duración de la jornada máxima será de ocho horas.\n\nII. La jornada máxima de trabajo nocturno será de 7 horas. Quedan prohibidas: las labores insalubres o peligrosas, el trabajo nocturno industrial y todo otro trabajo después de las diez de la noche, de los menores de quince años.\n\nIII. Queda prohibida la utilización del trabajo de los menores de quince años. Los mayores de esta edad y menores de dieciséis tendrán como jornada máxima la de seis horas.\n\nIV. Por cada seis días de trabajo deberá disfrutar el operario de un día de descanso, cuando menos.\n\nV. Las mujeres durante el embarazo no realizarán trabajos que exijan un esfuerzo considerable y signifiquen un peligro para su salud en relación con la gestación; gozarán forzosamente de un descanso de seis semanas anteriores a la fecha fijada aproximadamente para el parto y seis semanas posteriores al mismo, debiendo percibir su salario íntegro y conservar su empleo y los derechos que hubieren adquirido por la relación de trabajo.\n\nVI. Los salarios mínimos que deberán disfrutar los trabajadores serán generales o profesionales. Los primeros regirán en las áreas geográficas que se determinen; los segundos se aplicarán en ramas determinadas de la actividad económica o en profesiones, oficios o trabajos especiales. Los salarios mínimos generales deberán ser suficientes para satisfacer las necesidades normales de un jefe de familia, en el orden material, social y cultural, y para proveer a la educación obligatoria de los hijos.",
+				chapter: "Título Sexto",
+				section: "Del Trabajo y de la Previsión Social",
+			},
+			{
+				article_number: "133",
+				title: "Supremacía Constitucional",
+				body: "Esta Constitución, las leyes del Congreso de la Unión que emanen de ella y todos los tratados que estén de acuerdo con la misma, celebrados y que se celebren por el Presidente de la República, con aprobación del Senado, serán la Ley Suprema de toda la Unión. Los jueces de cada entidad federativa se arreglarán a dicha Constitución, leyes y tratados, a pesar de las disposiciones en contrario que pueda haber en las Constituciones o leyes de las entidades federativas.",
+				chapter: "Título Séptimo",
+				section: "Prevenciones Generales",
+			},
+		],
+	},
+	{
+		code: "LFT",
+		title: "Ley Federal del Trabajo",
+		jurisdiction: "federal",
+		materia: "laboral",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFT.pdf",
+		last_reform_date: "2024-06-12",
+		articles: [
+			{
+				article_number: "1",
+				body: "La presente Ley es de observancia general en toda la República y rige las relaciones de trabajo comprendidas en el artículo 123, Apartado A, de la Constitución.",
+				chapter: "Título Primero",
+				section: "Principios Generales",
+			},
+			{
+				article_number: "2",
+				body: "Las normas del trabajo tienden a conseguir el equilibrio entre los factores de la producción y la justicia social, así como propiciar el trabajo digno o decente en todas las relaciones laborales.\n\nSe entiende por trabajo digno o decente aquél en el que se respeta plenamente la dignidad humana del trabajador; no existe discriminación por origen étnico o nacional, género, edad, discapacidad, condición social, condiciones de salud, religión, condición migratoria, opiniones, preferencias sexuales o estado civil; se tiene acceso a la seguridad social y se percibe un salario remunerador; se recibe capacitación continua para el incremento de la productividad con beneficios compartidos, y se cuenta con condiciones óptimas de seguridad e higiene para prevenir riesgos de trabajo.",
+				chapter: "Título Primero",
+				section: "Principios Generales",
+			},
+			{
+				article_number: "3",
+				body: "El trabajo es un derecho y un deber sociales. No es artículo de comercio.\n\nNo podrán establecerse condiciones que impliquen discriminación entre los trabajadores por motivo de origen étnico o nacional, género, edad, discapacidad, condición social, condiciones de salud, religión, condición migratoria, opiniones, preferencias sexuales, estado civil o cualquier otro que atente contra la dignidad humana.\n\nNo se considerarán discriminatorias las distinciones, exclusiones o preferencias que se sustenten en las calificaciones particulares que exija una labor determinada.\n\nEs de interés social promover y vigilar la capacitación, el adiestramiento, la formación para y en el trabajo, la certificación de competencias laborales, la productividad y la calidad en el trabajo, la sustentabilidad ambiental, así como los beneficios que éstas deban generar tanto a los trabajadores como a los patrones.",
+				chapter: "Título Primero",
+				section: "Principios Generales",
+			},
+			{
+				article_number: "20",
+				body: "Se entiende por relación de trabajo, cualquiera que sea el acto que le dé origen, la prestación de un trabajo personal subordinado a una persona, mediante el pago de un salario.\n\nContrato individual de trabajo, cualquiera que sea su forma o denominación, es aquel por virtud del cual una persona se obliga a prestar a otra un trabajo personal subordinado, mediante el pago de un salario.\n\nLa prestación de un trabajo a que se refiere el párrafo primero y el contrato celebrado producen los mismos efectos.",
+				chapter: "Título Segundo",
+				section: "Relaciones Individuales de Trabajo",
+			},
+			{
+				article_number: "47",
+				title: "Causas de rescisión sin responsabilidad para el patrón",
+				body: "Son causas de rescisión de la relación de trabajo, sin responsabilidad para el patrón:\n\nI. Engañarlo el trabajador o en su caso, el sindicato que lo hubiese propuesto o recomendado con certificados falsos o referencias en los que se atribuyan al trabajador capacidad, aptitudes o facultades de que carezca.\n\nII. Incurrir el trabajador, durante sus labores, en faltas de probidad u honradez, en actos de violencia, amagos, injurias o malos tratamientos en contra del patrón, sus familiares o del personal directivo o administrativo de la empresa o establecimiento, o en contra de clientes y proveedores del patrón, salvo que medie provocación o que obre en defensa propia.\n\nIII. Cometer el trabajador contra alguno de sus compañeros, cualquiera de los actos enumerados en la fracción anterior, si como consecuencia de ellos se altera la disciplina del lugar en que se desempeña el trabajo.\n\nIV. Cometer el trabajador, fuera del servicio, contra el patrón, sus familiares o personal directivo administrativo, alguno de los actos a que se refiere la fracción II, si son de tal manera graves que hagan imposible el cumplimiento de la relación de trabajo.\n\nV. Ocasionar el trabajador, intencionalmente, perjuicios materiales durante el desempeño de las labores o con motivo de ellas, en los edificios, obras, maquinaria, instrumentos, materias primas y demás objetos relacionados con el trabajo.",
+				chapter: "Título Segundo",
+				section: "Rescisión de las Relaciones de Trabajo",
+			},
+			{
+				article_number: "48",
+				body: "El trabajador podrá solicitar ante la Junta de Conciliación y Arbitraje, a su elección, que se le reinstale en el trabajo que desempeñaba, o que se le indemnice con el importe de tres meses de salario, a razón del que corresponda a la fecha en que se realice el pago.\n\nSi en el juicio correspondiente no comprueba el patrón la causa de la rescisión, el trabajador tendrá derecho, además, cualquiera que hubiese sido la acción intentada, a que se le paguen los salarios vencidos computados desde la fecha del despido hasta por un período máximo de doce meses, en términos de lo preceptuado en la última parte del párrafo anterior.\n\nSi al término del plazo señalado en el párrafo anterior no ha concluido el procedimiento o no se ha dado cumplimiento al laudo, se pagarán también al trabajador los intereses que se generen sobre el importe de quince meses de salario, a razón del dos por ciento mensual, capitalizable al momento del pago. Lo dispuesto en este párrafo no será aplicable para el pago de otro tipo de indemnizaciones o prestaciones.",
+				chapter: "Título Segundo",
+				section: "Rescisión de las Relaciones de Trabajo",
+			},
+			{
+				article_number: "82",
+				title: "Salario",
+				body: "Salario es la retribución que debe pagar el patrón al trabajador por su trabajo.",
+				chapter: "Título Tercero",
+				section: "Condiciones de Trabajo",
+			},
+			{
+				article_number: "83",
+				body: "El salario puede fijarse por unidad de tiempo, por unidad de obra, por comisión, a precio alzado o de cualquier otra manera.\n\nCuando el salario se fije por unidad de obra, además de especificarse la naturaleza de ésta, se hará constar la cantidad y calidad del material, el estado de la herramienta y útiles que el patrón, en su caso, proporcione para ejecutar la obra, y el tiempo por el que los pondrá a disposición del trabajador, sin que pueda exigir cantidad alguna por concepto del desgaste natural que sufra la herramienta como consecuencia del trabajo.",
+				chapter: "Título Tercero",
+				section: "Condiciones de Trabajo",
+			},
+			{
+				article_number: "132",
+				title: "Obligaciones de los patrones",
+				body: "Son obligaciones de los patrones:\n\nI. Cumplir las disposiciones de las normas de trabajo aplicables a sus empresas o establecimientos.\n\nII. Pagar a los trabajadores los salarios e indemnizaciones, de conformidad con las normas vigentes en la empresa o establecimiento.\n\nIII. Proporcionar oportunamente a los trabajadores los útiles, instrumentos y materiales necesarios para la ejecución del trabajo, debiendo darlos de buena calidad, en buen estado y reponerlos tan luego como dejen de ser eficientes, siempre que aquéllos no se hayan comprometido a usar herramienta propia.\n\nIV. Proporcionar local seguro para la guarda de los instrumentos y útiles de trabajo pertenecientes al trabajador, siempre que deban permanecer en el lugar en que prestan los servicios, sin que sea lícito al patrón retenerlos a título de indemnización, garantía o cualquier otro.\n\nV. Mantener el número suficiente de asientos o sillas a disposición de los trabajadores en las casas comerciales, oficinas, hoteles, restaurantes y otros centros de trabajo análogos.",
+				chapter: "Título Cuarto",
+				section: "Derechos y Obligaciones de los Trabajadores y de los Patrones",
+			},
+			{
+				article_number: "170",
+				title: "Derechos de las madres trabajadoras",
+				body: "Las madres trabajadoras tendrán los siguientes derechos:\n\nI. Durante el período del embarazo, no realizarán trabajos que exijan esfuerzos considerables y signifiquen un peligro para su salud en relación con la gestación, tales como levantar, tirar o empujar grandes pesos, que produzcan trepidación, estar de pie durante largo tiempo o que actúen o puedan alterar su estado psíquico y nervioso;\n\nII. Disfrutarán de un descanso de seis semanas anteriores y seis posteriores al parto. A solicitud expresa de la trabajadora, previa autorización escrita del médico de la institución de seguridad social que le corresponda o, en su caso, del servicio de salud que otorgue el patrón, tomando en cuenta la opinión del patrón y la naturaleza del trabajo que desempeñe, se podrá transferir hasta cuatro de las seis semanas de descanso previas al parto para después del mismo;\n\nIII. Los períodos de descanso a que se refiere la fracción anterior se prorrogarán por el tiempo necesario en el caso de que se encuentren imposibilitadas para trabajar a causa del embarazo o del parto;\n\nIV. En el período de lactancia hasta por el término máximo de seis meses, tendrán dos reposos extraordinarios por día, de media hora cada uno, para alimentar a sus hijos, en lugar adecuado e higiénico que designe la empresa, o bien, cuando esto no sea posible, previo acuerdo con el patrón se reducirá en una hora su jornada de trabajo durante el período señalado.",
+				chapter: "Título Quinto",
+				section: "Trabajo de las Mujeres",
+			},
+		],
+	},
+	{
+		code: "CCF",
+		title: "Código Civil Federal",
+		jurisdiction: "federal",
+		materia: "civil",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/2_070124.pdf",
+		last_reform_date: "2024-01-07",
+		articles: [
+			{
+				article_number: "1",
+				body: "Las disposiciones de este Código regirán en toda la República en asuntos del orden federal.",
+				chapter: "Título Preliminar",
+				section: "Disposiciones Preliminares",
+			},
+			{
+				article_number: "2",
+				body: "La capacidad jurídica es igual para el hombre y la mujer; en consecuencia, la mujer no queda sometida, por razón de su sexo, a restricción alguna en la adquisición y ejercicio de sus derechos civiles.",
+				chapter: "Título Preliminar",
+				section: "Disposiciones Preliminares",
+			},
+			{
+				article_number: "1910",
+				title: "Responsabilidad Civil",
+				body: "El que obrando ilícitamente o contra las buenas costumbres cause daño a otro, está obligado a repararlo, a menos que demuestre que el daño se produjo como consecuencia de culpa o negligencia inexcusable de la víctima.",
+				chapter: "Libro Cuarto",
+				section: "De las Obligaciones que nacen de los actos ilícitos",
+			},
+			{
+				article_number: "1913",
+				body: "Cuando una persona hace uso de mecanismos, instrumentos, aparatos o substancias peligrosas por sí mismos, por la velocidad que desarrollen, por su naturaleza explosiva o inflamable, por la energía de la corriente eléctrica que conduzcan o por otras causas análogas, está obligada a responder del daño que cause, aunque no obre ilícitamente, a no ser que demuestre que ese daño se produjo por culpa o negligencia inexcusable de la víctima.",
+				chapter: "Libro Cuarto",
+				section: "De las Obligaciones que nacen de los actos ilícitos",
+			},
+			{
+				article_number: "2104",
+				title: "Incumplimiento de Obligaciones",
+				body: "El que estuviere obligado a prestar un hecho y dejare de prestarlo o no lo prestare conforme a lo convenido, será responsable de los daños y perjuicios en los términos siguientes:\n\nI. Si la obligación fuere a plazo, comenzará la responsabilidad desde el vencimiento de éste;\n\nII. Si la obligación no dependiere de plazo cierto, se observará lo dispuesto en el artículo 2080.",
+				chapter: "Libro Cuarto",
+				section: "Del Cumplimiento de las Obligaciones",
+			},
+			{
+				article_number: "2398",
+				title: "Contrato de Arrendamiento",
+				body: "Hay arrendamiento cuando las dos partes contratantes se obligan recíprocamente, una, a conceder el uso o goce temporal de una cosa, y la otra, a pagar por ese uso o goce un precio cierto.\n\nEl arrendamiento no puede exceder de diez años para las fincas destinadas a habitación y de veinte años para las fincas destinadas al comercio o a la industria.",
+				chapter: "Libro Cuarto",
+				section: "Del Arrendamiento",
+			},
+			{
+				article_number: "2412",
+				title: "Obligaciones del Arrendador",
+				body: "El arrendador está obligado, aunque no haya pacto expreso:\n\nI. A entregar al arrendatario la finca arrendada, con todas sus pertenencias y en estado de servir para el uso convenido; y si no hubo convenio expreso, para aquél a que por su misma naturaleza estuviere destinada;\n\nII. A conservar la cosa arrendada en el mismo estado, durante el arrendamiento, haciendo para ello todas las reparaciones necesarias;\n\nIII. A no estorbar ni embarazar de manera alguna el uso de la cosa arrendada, a no ser por causa de reparaciones urgentes e indispensables;\n\nIV. A garantizar el uso o goce pacífico de la cosa por todo el tiempo del contrato;\n\nV. A responder de los daños y perjuicios que sufra el arrendatario por los defectos o vicios ocultos de la cosa, anteriores al arrendamiento.",
+				chapter: "Libro Cuarto",
+				section: "Del Arrendamiento",
+			},
+		],
+	},
+	{
+		code: "CFF",
+		title: "Código Fiscal de la Federación",
+		jurisdiction: "federal",
+		materia: "fiscal",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/CFF.pdf",
+		last_reform_date: "2024-11-01",
+		articles: [
+			{
+				article_number: "1",
+				body: "Las personas físicas y las morales, están obligadas a contribuir para los gastos públicos conforme a las leyes fiscales respectivas. Las disposiciones de este Código se aplicarán en su defecto y sin perjuicio de lo dispuesto por los tratados internacionales de los que México sea parte. Sólo mediante ley podrá destinarse una contribución a un gasto público específico.\n\nLa Federación queda obligada a pagar contribuciones únicamente cuando las leyes lo señalen expresamente.\n\nLos estados extranjeros, en casos de reciprocidad, no están obligados a pagar impuestos. No quedan comprendidas en esta exención las entidades o agencias pertenecientes a dichos estados.\n\nLas personas que de conformidad con las leyes fiscales no estén obligadas a pagar contribuciones, únicamente tendrán las otras obligaciones que establezcan en forma expresa las propias leyes.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "2",
+				body: "Las contribuciones se clasifican en impuestos, aportaciones de seguridad social, contribuciones de mejoras y derechos, las que se definen de la siguiente manera:\n\nI. Impuestos son las contribuciones establecidas en ley que deben pagar las personas físicas y morales que se encuentran en la situación jurídica o de hecho prevista por la misma y que sean distintas de las señaladas en las fracciones II, III y IV de este artículo.\n\nII. Aportaciones de seguridad social son las contribuciones establecidas en ley a cargo de personas que son sustituidas por el Estado en el cumplimiento de obligaciones fijadas por la ley en materia de seguridad social o a las personas que se beneficien en forma especial por servicios de seguridad social proporcionados por el mismo Estado.\n\nIII. Contribuciones de mejoras son las establecidas en Ley a cargo de las personas físicas y morales que se beneficien de manera directa por obras públicas.\n\nIV. Derechos son las contribuciones establecidas en Ley por el uso o aprovechamiento de los bienes del dominio público de la Nación, así como por recibir servicios que presta el Estado en sus funciones de derecho público.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "5",
+				body: "Las disposiciones fiscales que establezcan cargas a los particulares y las que señalan excepciones a las mismas, así como las que fijan las infracciones y sanciones, son de aplicación estricta. Se considera que establecen cargas a los particulares las normas que se refieren al sujeto, objeto, base, tasa o tarifa.\n\nLas otras disposiciones fiscales se interpretarán aplicando cualquier método de interpretación jurídica. A falta de norma fiscal expresa, se aplicarán supletoriamente las disposiciones del derecho federal común cuando su aplicación no sea contraria a la naturaleza propia del derecho fiscal.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "22",
+				title: "Devolución de Contribuciones",
+				body: "Las autoridades fiscales devolverán las cantidades pagadas indebidamente y las que procedan conforme a las leyes fiscales. En el caso de contribuciones que se hubieran retenido, la devolución se efectuará a los contribuyentes a quienes se les hubiera retenido la contribución de que se trate.\n\nTratándose de impuestos indirectos, la devolución por pago de lo indebido se efectuará a las personas que hubieran pagado el impuesto trasladado a quien lo causó, siempre que no lo hayan acreditado; por lo tanto, quien trasladó el impuesto, ya sea en forma expresa y por separado o incluido en el precio, no tendrá derecho a solicitar su devolución.\n\nLa devolución mediante depósito en la cuenta del contribuyente, se realizará por la Administración Tributaria.",
+				chapter: "Título Segundo",
+				section: "De los Derechos y Obligaciones de los Contribuyentes",
+			},
+			{
+				article_number: "69",
+				title: "Secreto Fiscal",
+				body: "El personal oficial que intervenga en los diversos trámites relativos a la aplicación de las disposiciones tributarias estará obligado a guardar absoluta reserva en lo concerniente a las declaraciones y datos suministrados por los contribuyentes o por terceros con ellos relacionados, así como los obtenidos en el ejercicio de las facultades de comprobación. Dicha reserva no comprenderá los casos que señalen las leyes fiscales y aquellos en que deban suministrarse datos a los funcionarios encargados de la administración y de la defensa de los intereses fiscales federales, a las autoridades judiciales en procesos del orden penal o a los Tribunales competentes.",
+				chapter: "Título Tercero",
+				section: "De las Facultades de las Autoridades Fiscales",
+			},
+		],
+	},
+	{
+		code: "CPCDMX",
+		title: "Código Penal para el Distrito Federal",
+		jurisdiction: "estatal:cdmx",
+		materia: "penal",
+		source: "seed",
+		source_url: "https://www.congresocdmx.gob.mx/archivos/codigos/CPCDMX.pdf",
+		last_reform_date: "2024-03-15",
+		articles: [
+			{
+				article_number: "1",
+				body: "A toda persona a quien se atribuya la comisión o la participación en un delito se le presumirá inocente mientras no se declare su responsabilidad mediante sentencia emitida por el juez de la causa.\n\nLa imposición de las penas y medidas de seguridad corresponde exclusivamente al poder judicial.\n\nLas penas y medidas de seguridad se aplicarán por los delitos cometidos en el territorio del Distrito Federal o que produzcan efectos dentro de éste.",
+				chapter: "Libro Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "15",
+				title: "Principio de Legalidad",
+				body: "El principio de legalidad consiste en que nadie puede ser penado por una acción u omisión que no esté prevista como delito en una ley exactamente aplicable, vigente al tiempo de su comisión.",
+				chapter: "Libro Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "130",
+				title: "Homicidio",
+				body: "Al que prive de la vida a otro, se le impondrá de ocho a veinte años de prisión.",
+				chapter: "Libro Segundo",
+				section: "Delitos contra la Vida y la Integridad Corporal",
+			},
+			{
+				article_number: "220",
+				title: "Robo",
+				body: "Al que con ánimo de dominio y sin consentimiento de quien legalmente pueda otorgarlo, se apodere de una cosa mueble ajena, se le impondrán:\n\nI. Prisión de seis meses a dos años y de treinta a cien días multa, cuando el valor de lo robado no exceda de cincuenta veces la Unidad de Cuenta de la Ciudad de México vigente.\n\nII. Prisión de dos a seis años y de cien a trescientos días multa, cuando el valor de lo robado exceda de cincuenta pero no de quinientas veces la Unidad de Cuenta de la Ciudad de México vigente.",
+				chapter: "Libro Segundo",
+				section: "Delitos contra el Patrimonio",
+			},
+		],
+	},
+	{
+		code: "LGIMH",
+		title: "Ley General para la Igualdad entre Mujeres y Hombres",
+		jurisdiction: "federal",
+		materia: "derechos_humanos",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGIMH.pdf",
+		last_reform_date: "2024-05-20",
+		articles: [
+			{
+				article_number: "1",
+				body: "La presente Ley tiene por objeto regular y garantizar la igualdad de oportunidades y de trato entre mujeres y hombres, proponer los lineamientos y mecanismos institucionales que orienten a la Nación hacia el cumplimiento de la igualdad sustantiva en los ámbitos público y privado, promoviendo el empoderamiento de las mujeres y la lucha contra toda discriminación basada en el sexo. Sus disposiciones son de orden público e interés social y de observancia general en todo el Territorio Nacional.",
+				chapter: "Título I",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "2",
+				body: "Son principios rectores de la presente Ley: la igualdad, la no discriminación, la equidad y todos aquellos contenidos en la Constitución Política de los Estados Unidos Mexicanos.",
+				chapter: "Título I",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "6",
+				body: "La igualdad entre mujeres y hombres implica la eliminación de toda forma de discriminación en cualquiera de los ámbitos de la vida, que se genere por pertenecer a cualquier sexo.",
+				chapter: "Título I",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "17",
+				title: "Política Nacional de Igualdad",
+				body: "La Política Nacional en Materia de Igualdad entre mujeres y hombres deberá establecer las acciones conducentes a lograr la igualdad sustantiva en el ámbito, económico, político, social y cultural.\n\nLa Política Nacional que desarrolle el Ejecutivo Federal deberá considerar los siguientes lineamientos:\n\nI. Fomentar la igualdad entre mujeres y hombres en todos los ámbitos de la vida;\n\nII. Asegurar que la planeación presupuestal incorpore la perspectiva de género, apoye la transversalidad y prevea el cumplimiento de los programas, proyectos y acciones para la igualdad entre mujeres y hombres;\n\nIII. Fomentar la participación y representación política equilibrada entre mujeres y hombres;\n\nIV. Promover la igualdad de acceso y el pleno disfrute de los derechos sociales para las mujeres y los hombres;\n\nV. Promover la igualdad entre mujeres y hombres en la vida civil.",
+				chapter: "Título III",
+				section: "Política Nacional de Igualdad entre Mujeres y Hombres",
+			},
+		],
+	},
+	{
+		code: "LGTAIP",
+		title: "Ley General de Transparencia y Acceso a la Información Pública",
+		jurisdiction: "federal",
+		materia: "transparencia",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGTAIP.pdf",
+		last_reform_date: "2024-05-20",
+		articles: [
+			{
+				article_number: "1",
+				body: "La presente Ley es de orden público y de observancia general en toda la República, es reglamentaria del artículo 6o. de la Constitución Política de los Estados Unidos Mexicanos, en materia de transparencia y acceso a la información.\n\nTiene por objeto establecer los principios, bases generales y procedimientos para garantizar el derecho de acceso a la información en posesión de cualquier autoridad, entidad, órgano y organismo de los poderes Legislativo, Ejecutivo y Judicial, órganos autónomos, partidos políticos, fideicomisos y fondos públicos, así como de cualquier persona física, moral o sindicato que reciba y ejerza recursos públicos o realice actos de autoridad de la Federación, las Entidades Federativas y los municipios.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "4",
+				body: "El derecho humano de acceso a la información comprende solicitar, investigar, difundir, buscar y recibir información. Toda la información generada, obtenida, adquirida, transformada o en posesión de los sujetos obligados es pública y accesible a cualquier persona en los términos y condiciones que se establezcan en la presente Ley, en los tratados internacionales de los que el Estado mexicano sea parte, la Ley Federal, las leyes de las Entidades Federativas y la normatividad aplicable en sus respectivas competencias; sólo podrá ser clasificada excepcionalmente como reservada temporalmente por razones de interés público y seguridad nacional, en los términos dispuestos por esta Ley.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+		],
+	},
+	{
+		code: "LFPDPPP",
+		title: "Ley Federal de Protección de Datos Personales en Posesión de los Particulares",
+		jurisdiction: "federal",
+		materia: "datos_personales",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf",
+		last_reform_date: "2017-01-26",
+		articles: [
+			{
+				article_number: "1",
+				body: "La presente Ley es de orden público y de observancia general en toda la República y tiene por objeto la protección de los datos personales en posesión de los particulares, con la finalidad de regular su tratamiento legítimo, controlado e informado, a efecto de garantizar la privacidad y el derecho a la autodeterminación informativa de las personas.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "6",
+				body: "Los responsables en el tratamiento de datos personales, deberán observar los principios de licitud, consentimiento, información, calidad, finalidad, lealtad, proporcionalidad y responsabilidad, previstos en la Ley.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "8",
+				title: "Consentimiento",
+				body: "Todo tratamiento de datos personales estará sujeto al consentimiento de su titular, salvo las excepciones previstas por la presente Ley.\n\nEl consentimiento será expreso cuando la voluntad se manifieste verbalmente, por escrito, por medios electrónicos, ópticos o por cualquier otra tecnología, o por signos inequívocos.\n\nSe entenderá que el titular consiente tácitamente el tratamiento de sus datos, cuando habiéndose puesto a su disposición el aviso de privacidad, no manifieste su oposición.\n\nTratándose de datos personales sensibles, el responsable deberá obtener el consentimiento expreso y por escrito del titular para su tratamiento, a través de su firma autógrafa, firma electrónica, o cualquier mecanismo de autenticación que al efecto se establezca.",
+				chapter: "Título Segundo",
+				section: "De los Principios de Protección de Datos Personales",
+			},
+		],
+	},
+	{
+		code: "LGSM",
+		title: "Ley General de Sociedades Mercantiles",
+		jurisdiction: "federal",
+		materia: "mercantil",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGSM.pdf",
+		last_reform_date: "2024-03-20",
+		articles: [
+			{
+				article_number: "1",
+				body: "Esta Ley reconoce las siguientes especies de sociedades mercantiles:\n\nI. Sociedad en nombre colectivo;\n\nII. Sociedad en comandita simple;\n\nIII. Sociedad de responsabilidad limitada;\n\nIV. Sociedad anónima;\n\nIV Bis. Sociedad por acciones simplificada;\n\nV. Sociedad en comandita por acciones, y\n\nVI. Sociedad cooperativa.\n\nCualquiera de las sociedades a que se refieren las fracciones I a V y VII de este artículo podrá constituirse como sociedad de capital variable, observándose entonces las disposiciones del Capítulo VIII de esta Ley.",
+				chapter: "Capítulo I",
+				section: "De la constitución y funcionamiento de las Sociedades en General",
+			},
+			{
+				article_number: "87",
+				title: "Sociedad Anónima",
+				body: "Sociedad anónima es la que existe bajo una denominación y se compone exclusivamente de socios cuya obligación se limita al pago de sus acciones.",
+				chapter: "Capítulo V",
+				section: "De la Sociedad Anónima",
+			},
+			{
+				article_number: "89",
+				body: "Para proceder a la constitución de una sociedad anónima se requiere:\n\nI. Que haya dos socios como mínimo, y que cada uno de ellos suscriba una acción por lo menos;\n\nII. Que el contrato social establezca el monto mínimo del capital social y que esté íntegramente suscrito;\n\nIII. Que se exhiba en dinero efectivo, cuando menos el veinte por ciento del valor de cada acción pagadera en numerario, y\n\nIV. Que se exhiba íntegramente el valor de cada acción que haya de pagarse, en todo o en parte, con bienes distintos del numerario.",
+				chapter: "Capítulo V",
+				section: "De la Sociedad Anónima",
+			},
+		],
+	},
+	{
+		code: "CFPC",
+		title: "Código Federal de Procedimientos Civiles",
+		jurisdiction: "federal",
+		materia: "procesal_civil",
+		source: "camara_diputados",
+		source_url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/CFPC.pdf",
+		last_reform_date: "2023-06-08",
+		articles: [
+			{
+				article_number: "1",
+				body: "Sólo puede iniciar un procedimiento judicial o intervenir en él, quien tenga interés en que la autoridad judicial declare o constituya un derecho o imponga una condena, y quien tenga el interés contrario.\n\nActuarán, en el juicio, los mismos interesados o sus representantes o apoderados, en los términos de la ley. En cualquier caso, los efectos procesales serán los mismos, salva prevención en contrario.",
+				chapter: "Título Primero",
+				section: "Disposiciones Generales",
+			},
+			{
+				article_number: "79",
+				title: "Sana Crítica",
+				body: "Para conocer la verdad sobre los puntos controvertidos puede el juzgador valerse de cualquier persona, sea parte o tercero, y de cualquier cosa o documento, ya sea que pertenezca a las partes o a un tercero, sin más limitación que la de que las pruebas no estén prohibidas por la ley ni sean contrarias a la moral.",
+				chapter: "Título Cuarto",
+				section: "De la Prueba",
+			},
+			{
+				article_number: "93",
+				title: "Documentos Públicos",
+				body: "Son documentos públicos aquellos cuya formación está encomendada por la ley, dentro de los límites de su competencia, a un funcionario público revestido de la fe pública, y los expedidos por funcionarios públicos, en el ejercicio de sus funciones.\n\nLa calidad de públicos se demuestra por la existencia regular, sobre los documentos, de los sellos, firmas u otros signos exteriores que, en su caso, prevengan las leyes.",
+				chapter: "Título Cuarto",
+				section: "De la Prueba",
+			},
+		],
+	},
+];

@@ -1,54 +1,59 @@
 /**
  * CODEX·IA — Drift Detection Script
  * Usage: npm run drift:detect
- * Compares local DB against DOF for legislative reforms
- * Runs daily via GitHub Actions CI/CD
  */
 
-import Database from "better-sqlite3";
-import { resolve } from "path";
+import initSqlJs from "sql.js-fts5";
+import { readFileSync, existsSync } from "fs";
+import { resolve, dirname } from "path";
+import { createRequire } from "module";
 
 const DB_PATH = resolve(import.meta.dirname ?? ".", "../data/codexia.db");
 const isCI = process.argv.includes("--ci");
+
+function loadWasm(): Buffer {
+	const require = createRequire(import.meta.url);
+	const mainPath = require.resolve("sql.js-fts5");
+	return readFileSync(resolve(dirname(mainPath), "sql-wasm.wasm"));
+}
 
 async function main() {
 	console.log("🏛️  CODEX·IA — Drift Detection");
 	console.log(`📦 Database: ${DB_PATH}`);
 	console.log(`🔄 Mode: ${isCI ? "CI/CD" : "manual"}\n`);
 
-	const db = new Database(DB_PATH, { readonly: true });
+	if (!existsSync(DB_PATH)) {
+		console.log("❌ Database not found. Run 'npm run build:db' first.");
+		process.exit(1);
+	}
 
-	// Count current coverage
-	const stats = db.prepare(`
+	const SQL = await initSqlJs({ wasmBinary: loadWasm() });
+	const buffer = readFileSync(DB_PATH);
+	const db = new SQL.Database(buffer);
+
+	const result = db.exec(`
 		SELECT
 			(SELECT COUNT(*) FROM statutes) AS statutes,
 			(SELECT COUNT(*) FROM provisions) AS provisions,
-			(SELECT COUNT(*) FROM reforms WHERE applied = 0) AS pending_reforms
-	`).get() as { statutes: number; provisions: number; pending_reforms: number };
+			(SELECT COUNT(*) FROM reforms WHERE applied = 0) AS pending
+	`);
 
-	console.log(`📊 Current coverage:`);
-	console.log(`   Statutes:  ${stats.statutes}`);
-	console.log(`   Provisions: ${stats.provisions}`);
-	console.log(`   Pending reforms: ${stats.pending_reforms}`);
+	const row = result[0]?.values[0] ?? [0, 0, 0];
+	const [statutes, provisions, pending] = row as number[];
 
-	// TODO: Query SIDOF API for recent DOF publications
-	// Compare against local reforms table
-	// Flag new reforms as pending
-	// In CI mode, exit with code 1 if pending reforms > threshold
-
+	console.log("📊 Current coverage:");
+	console.log(`   Statutes:  ${statutes}`);
+	console.log(`   Provisions: ${provisions}`);
+	console.log(`   Pending reforms: ${pending}`);
 	console.log("\n⏳ SIDOF drift check not yet implemented");
 
 	db.close();
 
-	if (isCI && stats.pending_reforms > 0) {
-		console.log(`\n⚠️  ${stats.pending_reforms} pending reforms — DB may be outdated`);
+	if (isCI && pending > 0) {
+		console.log(`\n⚠️  ${pending} pending reforms`);
 		process.exit(1);
 	}
-
 	console.log("\n✅ Drift detection complete.");
 }
 
-main().catch((err) => {
-	console.error("❌ Drift detection failed:", err);
-	process.exit(1);
-});
+main().catch((err) => { console.error("❌", err); process.exit(1); });

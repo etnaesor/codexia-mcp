@@ -1,30 +1,49 @@
 /**
  * CODEX·IA — Build Database Script
  * Usage: npm run build:db
- * Creates empty SQLite database with FTS5 schema
+ * Creates SQLite database with FTS5 schema and saves to disk
  */
 
-import Database from "better-sqlite3";
-import { resolve } from "path";
-import { mkdirSync } from "fs";
+import initSqlJs from "sql.js-fts5";
+import { readFileSync, writeFileSync, mkdirSync } from "fs";
+import { resolve, dirname } from "path";
+import { createRequire } from "module";
 import { SCHEMA_SQL } from "../src/db/schema.js";
 
 const DB_PATH = resolve(import.meta.dirname ?? ".", "../data/codexia.db");
 
-console.log("🏛️  CODEX·IA — Build Database");
-console.log(`📦 Creating: ${DB_PATH}\n`);
-
-mkdirSync(resolve(DB_PATH, ".."), { recursive: true });
-
-const db = new Database(DB_PATH);
-db.pragma("journal_mode = WAL");
-db.exec(SCHEMA_SQL);
-
-const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-console.log(`✅ Created ${tables.length} tables:`);
-for (const t of tables as Array<{ name: string }>) {
-	console.log(`   • ${t.name}`);
+function loadWasm(): Buffer {
+	const require = createRequire(import.meta.url);
+	const mainPath = require.resolve("sql.js-fts5");
+	return readFileSync(resolve(dirname(mainPath), "sql-wasm.wasm"));
 }
 
-db.close();
-console.log("\n✅ Database ready. Run 'npm run ingest' to populate.");
+async function main() {
+	console.log("🏛️  CODEX·IA — Build Database");
+	console.log(`📦 Creating: ${DB_PATH}\n`);
+
+	mkdirSync(dirname(DB_PATH), { recursive: true });
+
+	const SQL = await initSqlJs({ wasmBinary: loadWasm() });
+	const db = new SQL.Database();
+	db.run(SCHEMA_SQL);
+
+	const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
+	if (tables.length > 0) {
+		console.log(`✅ Created ${tables[0].values.length} tables:`);
+		for (const row of tables[0].values) {
+			console.log(`   • ${row[0]}`);
+		}
+	}
+
+	// Save to disk
+	const data = db.export();
+	const buffer = Buffer.from(data);
+	writeFileSync(DB_PATH, buffer);
+	console.log(`\n💾 Saved: ${DB_PATH} (${(buffer.length / 1024).toFixed(1)} KB)`);
+
+	db.close();
+	console.log("✅ Database ready. Run 'npm run ingest' to populate.");
+}
+
+main().catch(console.error);

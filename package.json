@@ -17,9 +17,19 @@
   "homepage": "https://codexia.mx",
   "bugs": "https://github.com/etnaesor/codexia-mcp/issues",
   "keywords": [
-    "mcp", "model-context-protocol", "mexican-law", "legal",
-    "legislation", "sqlite", "fts5", "claude", "cursor",
-    "legaltech", "mexico", "derecho", "legislacion"
+    "mcp",
+    "model-context-protocol",
+    "mexican-law",
+    "legal",
+    "legislation",
+    "sqlite",
+    "fts5",
+    "claude",
+    "cursor",
+    "legaltech",
+    "mexico",
+    "derecho",
+    "legislacion"
   ],
   "engines": {
     "node": ">=20.0.0"
@@ -39,15 +49,14 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
-    "better-sqlite3": "^11.8.0",
+    "sql.js-fts5": "^1.4.0",
     "zod": "^3.24.0"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.12",
     "@types/node": "^22.10.0",
+    "eslint": "^9.17.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",
-    "vitest": "^3.0.0",
-    "eslint": "^9.17.0"
+    "vitest": "^3.0.0"
   }
 }
