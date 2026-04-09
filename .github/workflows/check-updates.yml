@@ -24,6 +24,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Build database
+        run: npm run build:db && npm run ingest
+
       - name: Run drift detection
         run: npm run check-updates
         env:
