@@ -1,23 +1,27 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
-  "name": "codexia-mcp",
-  "functions": {
-    "api/**": {
-      "maxDuration": 30,
-      "memory": 1024
-    }
-  },
-  "rewrites": [
-    { "source": "/mcp", "destination": "/api/mcp" }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" }
-      ]
-    }
-  ]
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"version": 2,
+	"name": "codexia-mcp",
+	"functions": {
+		"api/**": {
+			"maxDuration": 30,
+			"memory": 1024,
+			"includeFiles": "node_modules/sql.js-fts5/dist/sql-wasm.wasm,data/codexia.db"
+		}
+	},
+	"rewrites": [
+		{ "source": "/mcp", "destination": "/api/mcp" },
+		{ "source": "/mcp/sse", "destination": "/api/mcp" }
+	],
+	"headers": [
+		{
+			"source": "/api/(.*)",
+			"headers": [
+				{ "key": "Access-Control-Allow-Origin", "value": "*" },
+				{ "key": "Access-Control-Allow-Methods", "value": "GET, POST, DELETE, OPTIONS" },
+				{ "key": "Access-Control-Allow-Headers", "value": "Content-Type, mcp-session-id" },
+				{ "key": "Access-Control-Expose-Headers", "value": "mcp-session-id" }
+			]
+		}
+	]
 }
