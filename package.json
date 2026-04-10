@@ -46,6 +46,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
+    "serve": "tsx src/serve.ts",
     "ingest": "tsx scripts/ingest.ts",
     "build:db": "tsx scripts/build-db.ts",
     "drift:detect": "tsx scripts/drift-detect.ts",
